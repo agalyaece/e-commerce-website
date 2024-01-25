@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "formhelpers.html" import render_field %}
+{% block content %}
+<div class="text-center text-danger"><h3>Login</h3></div>
+
+<div>
+    <form
+            method="post">
+        <fieldset>
+            {{ render_field(form.email, class="form-control") }}
+            {{ render_field(form.password, class="form-control") }}
+            <input type="submit" value="Submit" />
+
+        </fieldset>
+    </form>
+</div>
+
+{% endblock content %}
