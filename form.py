@@ -1,7 +1,8 @@
-from wtforms import Form, StringField, SubmitField, PasswordField, BooleanField, TextAreaField, IntegerField
+from wtforms import Form, StringField, SubmitField, PasswordField, BooleanField, TextAreaField, IntegerField, DecimalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from flask_wtf.file import FileAllowed,FileField, FileRequired
 
+ 
 # create from to register new user
 class RegisterForm(Form):
     name = StringField("Name", validators=[Length(min=3, max=25), DataRequired(message="Please fill this field!")])
@@ -21,15 +22,15 @@ class LoginForm(Form):
 
 class AddProducts(Form):
     name = StringField("Name", validators=[Length(min=3, max=25), DataRequired(message="Please fill this field!")])
-    price = IntegerField("Price", validators=[DataRequired(message="Please fill this field!")])
+    price = DecimalField("Price", validators=[DataRequired(message="Please fill this field!")])
     discount = IntegerField("Discount", default=0)
     stock = IntegerField("Stock", validators=[DataRequired(message="Please fill this field!")])
     description = TextAreaField("Description", validators=[DataRequired(message="Please fill this field!")])
     colors = TextAreaField("Colors", validators=[DataRequired(message="Please fill this field!")])
 
-    image_1 = FileField("image_1", validators=[FileRequired(), FileAllowed(["jpg", "png", "gif", "jpeg"]),
-                                               "images only please!"])
-    image_2 = FileField("image_2", validators=[FileRequired(), FileAllowed(["jpg", "png", "gif", "jpeg"]),
-                                               "images only please!"])
-    image_3 = FileField("image_3", validators=[FileRequired(), FileAllowed(["jpg", "png", "gif", "jpeg"]),
-                                               "images only please!"])
+    image_1 = FileField("image_1", validators=[FileAllowed(["jpg", "png", "gif", "jpeg"])])
+
+    image_2 = FileField("image_2", validators=[FileAllowed(["jpg", "png", "gif", "jpeg"])])
+
+    image_3 = FileField("image_3", validators=[FileAllowed(["jpg", "png", "gif", "jpeg"])])
+
