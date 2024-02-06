@@ -101,7 +101,28 @@ with app.app_context():
 
 @app.route("/")
 def home():
-    return
+    page = request.args.get('page', 1, type=int)
+    products = AddProduct.query.filter(AddProduct.stock > 0).paginate(page=page, per_page=3)
+    brands_1 = Brand.query.join(AddProduct, (Brand.id == AddProduct.brand_id)).all()
+    categories = Category.query.join(AddProduct, (Category.id == AddProduct.category_id)).all()
+    return render_template("products/index.html", products=products, brands_1=brands_1, categories=categories)
+
+
+@app.route("/brand/<int:b_id>")
+def get_brand(b_id):
+    brand = AddProduct.query.filter_by(brand_id=b_id)
+    brands_1 = Brand.query.join(AddProduct, (Brand.id == AddProduct.brand_id)).all()
+    categories = Category.query.join(AddProduct, (Category.id == AddProduct.category_id)).all()
+    return render_template("products/index.html", brand=brand, brands_1=brands_1, categories=categories)
+
+
+@app.route("/category/<int:b_id>")
+def get_category(b_id):
+    get_cat_prod = AddProduct.query.filter_by(category_id=b_id)
+    categories = Category.query.join(AddProduct, (Category.id == AddProduct.category_id)).all()
+    brands_1 = Brand.query.join(AddProduct, (Brand.id == AddProduct.brand_id)).all()
+    return render_template("products/index.html", get_cat_prod=get_cat_prod, categories=categories, brands_1=brands_1)
+
 
 @admin_only
 @app.route("/admin")
