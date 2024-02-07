@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "formhelpers.html" import render_field %}
+{% block content %}
+
+<div class="text-center h1 text-danger">
+    <h3>Register as New User</h3>
+</div>
+<div>
+    {{ form.csrf_token }}
+    <form
+     method="post">
+    <fieldset>
+        {{ render_field(form.name, class="form-control") }}
+        {{ render_field(form.username, class="form-control") }}
+        {{ render_field(form.email, class="form-control") }}
+        {{ render_field(form.password, class="form-control") }}
+        {{ render_field(form.confirm, class="form-control") }}
+        {{ render_field(form.country, class="form-control") }}
+        {{ render_field(form.state, class="form-control") }}
+        {{ render_field(form.city, class="form-control") }}
+        {{ render_field(form.contact, class="form-control") }}
+        {{ render_field(form.address, class="form-control") }}
+        {{ render_field(form.zipcode, class="form-control") }}
+        {{ form.profile() }}
+
+        <input type="submit" value="Register" class="btn btn-info btn-sm float-right"/>
+
+    </fieldset>
+</form>
+</div>
+
+{% endblock content %}
